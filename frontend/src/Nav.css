@@ -1,0 +1,8 @@
+.Nav a {
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.Nav a.active {
+    color: black;
+}
