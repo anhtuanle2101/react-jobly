@@ -45,11 +45,36 @@ class JoblyApi {
 
   // Get all companies
 
-  static async getAll(){
+  static async getAllCompanies(){
     let res = await this.request(`companies`);
     return res.companies;
   }
 
+  // Get all jobs
+
+  static async getAllJobs(){
+    let res = await this.request(`jobs`);
+    return res.jobs;
+  }
+
+  // User Signs Up
+
+  static async userSignUp({ username, firstName, lastName, password, email }){
+    let res = await this.request(`auth/register`, { username, firstName, lastName, password, email }, "post");
+    return res.token;
+  }
+
+  // User Signs In
+
+  static async userSignIn({ username, password }){
+    let res = await this.request(`auth/token`, { username, password }, "post");
+    return res.token;
+  }
+
+  static async getUser(username){
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
   
 }
 

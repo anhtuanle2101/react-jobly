@@ -1,10 +1,24 @@
 import React from "react";
-import { Container } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Container, Card, CardBody,
+    CardTitle, CardText } from "reactstrap";
 
-const CompanyCard = ()=>{
+const CompanyCard = ({ companyHandle, companyName, description, logo })=>{
+    
     return (
         <Container className="CompanyCard">
-            CompanyCard
+            <Link to={`/companies/${companyHandle}`}>
+                <Card >
+                    <CardBody>
+                        <CardTitle>{companyName}</CardTitle>
+                        <CardText>
+                        {description}
+                        </CardText>
+                        <img src={logo} alt={companyName}/>
+                    </CardBody>
+                </Card>
+            </Link>
+            
         </Container>
     )
 }
