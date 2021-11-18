@@ -1,13 +1,14 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container,Button } from "reactstrap";
 import JobCard from "./JobCard";
 import JoblyApi from "./api";
 import { useNavigate } from "react-router-dom";
+import currentUserContext from "./currentUserContext";
 
 
-const JobList = ({ applyJob, getData })=>{
-    const INIT_DATA = {"jobSearch":""};
+const JobList = ({ applyJob, getData, filterJob })=>{
+    const INIT_DATA = {"jobSearchTerm":""};
     const navigate = useNavigate();
 
     const [jobList, setJobList] = useState([]);
@@ -15,31 +16,35 @@ const JobList = ({ applyJob, getData })=>{
     const [isLoading, setIsLoading] = useState(true);
     const [formData, setFormData] = useState(INIT_DATA);
 
+    const { currentUser } = useContext(currentUserContext);
 
     useEffect(()=>{
         async function fetchData(){
           
-          let userDetails;
-          try {
-            userDetails = await getData();
-          } catch (err) {
-            console.log(err); 
-            navigate("/");
-          }
-          if (!userDetails) navigate("/jobs");
-          else{
-            setAppliedJobs(userDetails.applications);
-          }
-          const jobs = await JoblyApi.getAllJobs();
-          setJobList(jobs);
+            let userDetails;
+            try {
+                userDetails = await getData();
+            } catch (err) {
+                console.log(err); 
+                navigate("/");
+            }
+            if (!userDetails) 
+                navigate("/jobs");
+            else{
+                setAppliedJobs(userDetails.applications);
+            }
+            const jobs = await JoblyApi.getAllJobs();
+            setJobList(jobs);
         }
         fetchData();
         setIsLoading(false);
     }, [])
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log(formData);
+        const { jobSearchTerm } = formData;
+        const jobs = await filterJob(jobSearchTerm);
+        setJobList(jobs);
     }
 
     const handleChange = (e)=>{
@@ -55,7 +60,7 @@ const JobList = ({ applyJob, getData })=>{
                 <h1>Job List</h1>
                 {/* Search Box */}
                 <form>
-                    <input type="search" placeholder="Enter search term" id="jobSearch" name="jobSearch" onChange={handleChange}/>
+                    <input type="search" placeholder="Enter search term" id="jobSearchTerm" name="jobSearchTerm" onChange={handleChange}/>
                     <Button onClick={handleSubmit}>Submit</Button>
                 </form>
                 {/* Jobs List */}

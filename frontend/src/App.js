@@ -80,6 +80,18 @@ function App() {
     await JoblyApi.apply(currentUser, jobId);
   }
 
+  // filterCompany function which filters out the companies don't match the search term
+  const filterCompany = async (term)=>{
+    const companies = await JoblyApi.getCompaniesWithFilter(term);
+    return companies;
+  }
+
+  // filterJob function which filters out the jobs don't match the search term
+  const filterJob = async (term)=>{
+    const jobs = await JoblyApi.getJobsWithFilter(term);
+    return jobs;
+  }
+
   useEffect(()=>{
     getTokenFromLocalStorage();
     getUserFromLocalStorage();
@@ -99,10 +111,10 @@ function App() {
             <Route path="/login" element={<LoginForm signIn={signIn}/>}/>
             <Route path="/signup" element={<SignUpForm signUp={signUp}/>}/>
             <Route path="/companies">
-              <Route path="" element={<CompanyList />}/>
+              <Route path="" element={<CompanyList filterCompany={filterCompany}/>}/>
               <Route path=":company" element={<CompanyDetails />}/>
             </Route>
-            <Route path="/jobs" element={<JobList applyJob={applyJob} getData={getData}/>}/>
+            <Route path="/jobs" element={<JobList applyJob={applyJob} getData={getData} filterJob={filterJob}/>}/>
             <Route path="/profile" element={<Profile getData={getData} updateInfo={updateInfo}/>}/>
             <Route path="/logout" element={<LogOut logOut={logOut}/>}/>
             <Route path="*" element={<NotFound />}/>

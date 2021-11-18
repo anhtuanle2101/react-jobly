@@ -4,8 +4,8 @@ import CompanyCard from "./CompanyCard";
 // Api helper
 import JoblyApi from "./api";
 
-const CompanyList = ()=>{
-    const INIT_DATA = {"companySearch":""};
+const CompanyList = ({ filterCompany })=>{
+    const INIT_DATA = {"companySearchTerm":""};
 
     const [companyList, setCompanyList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -22,9 +22,11 @@ const CompanyList = ()=>{
         
     }, [])
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log(formData);
+        const { companySearchTerm } = formData;
+        const companies = await filterCompany(companySearchTerm);
+        setCompanyList(companies);
     }
 
     const handleChange = (e)=>{
@@ -39,7 +41,7 @@ const CompanyList = ()=>{
             <h1>Company List</h1>
             {/* Search Box */}
             <form>
-                <input type="search" placeholder="Enter search term" id="companySearch" name="companySearch" onChange={handleChange}/>
+                <input type="search" placeholder="Enter search term" id="companySearchTerm" name="companySearchTerm" onChange={handleChange}/>
                 <Button onClick={handleSubmit}>Submit</Button>
             </form>
             {/* Company List */}
