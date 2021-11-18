@@ -6,7 +6,7 @@ import currentUserContext from "./currentUserContext";
 
 const Nav = ()=>{
     const { currentUser } = useContext(currentUserContext);
-    console.log(currentUser);
+    
     return (
         <nav className="Nav">
             <h2><NavLink to="/">Jobly</NavLink></h2>

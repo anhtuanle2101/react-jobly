@@ -1,0 +1,9 @@
+.CompanyCard a {
+    text-decoration: none;
+    text-align: left;
+    color: black;
+}
+
+.CompanyCard a:hover {
+    color: blue;
+}

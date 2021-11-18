@@ -1,0 +1,9 @@
+.SignUpForm div {
+    block-size: auto;
+    display: block;
+    margin-top: 1.5rem;
+}
+.SignUpForm button {
+    margin-top: 1.2rem;
+    text-align: center;
+}

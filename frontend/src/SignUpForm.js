@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Button } from "reactstrap";
+import "./SignUpForm.css"
 
 const SignUpForm = ({ signUp })=>{
     const INIT_DATA = {username: "", password: "", firstName: "", lastName: "", email: ""};
@@ -20,9 +21,10 @@ const SignUpForm = ({ signUp })=>{
         setFormData(data=>({...data, [name]:value}));
     }
     return (
-        <Container className="LoginForm">
-            Sign Up Form
+        <Container className="SignUpForm">
+            <h1>Sign Up Form</h1>
             <form>
+                <Container>
                 <label htmlFor="username">Username: </label>
                 <input
                     type="text"
@@ -32,7 +34,9 @@ const SignUpForm = ({ signUp })=>{
                     value={formData.username}
                     onChange={handleChange}
                 />
-                <label htmlFor="password">Password: </label>
+                </Container>
+                
+                <Container><label htmlFor="password">Password: </label>
                 <input
                     type="password"
                     id="password"
@@ -40,8 +44,8 @@ const SignUpForm = ({ signUp })=>{
                     placeholder="password"
                     value={formData.password}
                     onChange={handleChange}
-                />
-                <label htmlFor="firstName">First Name: </label>
+                /></Container>
+                <Container><label htmlFor="firstName">First Name: </label>
                 <input
                     type="text"
                     id="firstName"
@@ -49,8 +53,8 @@ const SignUpForm = ({ signUp })=>{
                     placeholder="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                />
-                <label htmlFor="lastName">Last Name: </label>
+                /></Container>
+                <Container><label htmlFor="lastName">Last Name: </label>
                 <input
                     type="text"
                     id="lastName"
@@ -58,8 +62,8 @@ const SignUpForm = ({ signUp })=>{
                     placeholder="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                />
-                <label htmlFor="email">Email: </label>
+                /></Container>
+                <Container><label htmlFor="email">Email: </label>
                 <input
                     type="email"
                     id="email"
@@ -67,7 +71,7 @@ const SignUpForm = ({ signUp })=>{
                     placeholder="email"
                     value={formData.email}
                     onChange={handleChange}
-                />
+                /></Container>
                 <Button onClick={handleSubmit}>Submit</Button>
             </form>
         </Container>

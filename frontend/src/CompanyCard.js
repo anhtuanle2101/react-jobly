@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Card, CardBody,
     CardTitle, CardText } from "reactstrap";
+import "./CompanyCard.css";
 
 const CompanyCard = ({ companyHandle, companyName, description, logo })=>{
     

@@ -36,7 +36,7 @@ const CompanyList = ()=>{
     }
     return (
         <Container className="CompanyList">
-            Company List
+            <h1>Company List</h1>
             {/* Search Box */}
             <form>
                 <input type="search" placeholder="Enter search term" id="companySearch" name="companySearch" onChange={handleChange}/>

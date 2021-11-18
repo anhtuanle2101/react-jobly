@@ -3,20 +3,24 @@ import { Container } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 const LogOut = ({ logOut })=>{
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoggingOut, setIsLoggingOut] = useState(true);
     const navigate = useNavigate();
-
+    
     useEffect(()=>{
         logOut();
+        setIsLoggingOut(false);
         navigate("/");
-    })
-    if (isLoading)
-        return <p>Loading..</p>
-    return(
-        <Container>
-
-        </Container>
-    )
+    }, [isLoggingOut])
+    if (isLoggingOut)
+        return (
+            <Container>Logging out..</Container>
+        );
+    else{
+        return (
+            <Container>Logged out</Container>
+        )
+        
+    }
 }
 
 export default LogOut;
